@@ -13,14 +13,14 @@ function App() {
 
       <div className ="form-container">
       <form>
-        <label htmlFor="songTitle">Enter Song Name</label>
+        <label className='song-label' htmlFor="songTitle">Enter Song Name:</label>
         <input
           type="text"
           id="songTitle"
           placeholder="Shining Star"
         />
-
-        <label htmlFor="bpm">Beats Per Minute</label>
+      <div className ='bpm-and-button'>
+        <label htmlFor="bpm">Beats Per Minute: </label>
         <input
           type="number"
           id="bpm"
@@ -29,9 +29,8 @@ function App() {
           placeholder="120"
         />
 
-  <button type="submit">
-    Save Song
-  </button>
+        <button type="submit">Save Song</button>
+        </div>
 </form>
 </div>
     </>
