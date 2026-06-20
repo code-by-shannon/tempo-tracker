@@ -5,13 +5,24 @@ import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
-  const [songName, setSongName] = useState('');
+  const [input, setInput] = useState('');
+  const [songTitle, setSongTitle] = useState([]);
 
-
+// track song title input
   function handleChange(e) {
-    setSongName(e.target.value);
+    setInput(e.target.value);
     console.log(e.target.value);
   }
+
+// render song title to jsx
+function renderSongTitle(e){
+  e.preventDefault();
+  setSongTitle([...songTitle, input]);
+  
+}
+
+console.log(songTitle);
+
   return (
     <>
       <h1>Shannon and Fabián's Fabulous Tempo Tracker App</h1>
@@ -35,13 +46,15 @@ function App() {
           placeholder="120"
         />
 
-        <button type="submit">Save Song</button>
+        <button type="submit"
+                onClick={ renderSongTitle }
+        >Save Song</button>
         </div>
 </form>
 </div>
 
         <div>
-          <p className = 'p-song-list'> { songName }</p>
+          <p className = 'p-song-list'> { input }</p>
         </div>
 
     </>
