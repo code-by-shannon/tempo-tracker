@@ -52,10 +52,13 @@ console.log(songTitle);
         </div>
 </form>
 </div>
-
-        <div>
-          <p className = 'p-song-list'> { input }</p>
-        </div>
+      <div>
+        <ul className="p-song-list">
+          {songTitle.map((song, index) => (
+            <li key={index}>{song}</li>
+          ))}
+        </ul>
+      </div>
 
     </>
   )
