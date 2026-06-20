@@ -5,8 +5,13 @@ import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
-  
+  const [songName, setSongName] = useState('');
 
+
+  function handleChange(e) {
+    setSongName(e.target.value);
+    console.log(e.target.value);
+  }
   return (
     <>
       <h1>Shannon and Fabián's Fabulous Tempo Tracker App</h1>
@@ -15,6 +20,7 @@ function App() {
       <form>
         <label className='song-label' htmlFor="songTitle">Enter Song Name:</label>
         <input
+          onChange={handleChange}
           type="text"
           id="songTitle"
           placeholder="Shining Star"
@@ -30,6 +36,11 @@ function App() {
         />
 
         <button type="submit">Save Song</button>
+        </div>
+
+        <div>
+          <h1>TEST</h1>
+          <p className = 'p-song-list'> { songName }</p>
         </div>
 </form>
 </div>
