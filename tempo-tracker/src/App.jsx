@@ -37,13 +37,13 @@ function App() {
 
         <button type="submit">Save Song</button>
         </div>
-
-        <div>
-          <h1>TEST</h1>
-          <p className = 'p-song-list'> { songName }</p>
-        </div>
 </form>
 </div>
+
+        <div>
+          <p className = 'p-song-list'> { songName }</p>
+        </div>
+
     </>
   )
 }
