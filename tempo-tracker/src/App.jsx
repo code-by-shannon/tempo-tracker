@@ -30,6 +30,14 @@ function renderSongTitle(e){
   setBpm('');
 }
 
+// delete li (title, bpm, etc)
+function deleteFunction(indexToDelete){
+    const newArray = songTitle.filter( (song, index) => index !== indexToDelete);
+    setSongTitle(newArray);
+    }
+  
+
+
 
 
   return (
@@ -67,7 +75,12 @@ function renderSongTitle(e){
       <div>
         <ul className="p-song-list">
           {songTitle.map((song, index) => (
-            <li key={index}>{song.title}: {song.bpm}</li>
+            <li key={index}>
+              {song.title}: 
+              {song.bpm} 
+              <button
+              onClick={()=> deleteFunction(index) }
+              >Delete</button></li>
           ))}
         </ul>
       </div>
