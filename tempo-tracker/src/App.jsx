@@ -4,6 +4,7 @@ import './App.css'
 
 // connect new audio engine
 const audioContext = new AudioContext();
+let nextClickTime = 0;
 
 function App() {
   const [title, setTitle] = useState('');
@@ -63,17 +64,22 @@ function click(time){
 
 // on Test button click
 function testClick(){
-  click(audioContext.currentTime);
-  scheduleBeats();
+  nextClickTime = audioContext.currentTime;
+  scheduler();
 }
 
 // sets beat interval parameters based on selected BPM
 function scheduleBeats(){
   const secondsPerBeat = 60/activeBPM;
-  let nextClickTime = audioContext.currentTime;
+  nextClickTime += secondsPerBeat;
+  click(nextClickTime);
+}
 
-
-
+function scheduler(){
+  if(audioContext.currentTime >= nextClickTime){
+    scheduleBeats();
+  }
+  setTimeout(scheduler, 25);
 }
 
     // JSX JSX JSX JSX JSX
