@@ -5,12 +5,14 @@ import './App.css'
 // connect new audio engine
 const audioContext = new AudioContext();
 let nextClickTime = 0;
+let isMetronomeRunning = false;
 
 function App() {
   const [title, setTitle] = useState('');
   const [bpm, setBpm] = useState(120);
   const [songs, setSongs] = useState([]);
   const [activeBPM, setActiveBPM] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
 // track song title input
   function handleSongChange(e) {
@@ -64,8 +66,13 @@ function click(time){
 
 // on Test button click
 function testClick(){
-  nextClickTime = audioContext.currentTime;
-  scheduler();
+  
+  if(!isMetronomeRunning){
+    isMetronomeRunning = true;
+    nextClickTime = audioContext.currentTime;
+    scheduler();
+
+  } else isMetronomeRunning = false;
 }
 
 // sets beat interval parameters based on selected BPM
@@ -76,10 +83,17 @@ function scheduleBeats(){
 }
 
 function scheduler(){
+  
+  if(!isMetronomeRunning){
+    setIsPlaying(false);
+    return;
+  } else
+
   if(audioContext.currentTime >= nextClickTime){
     scheduleBeats();
   }
   setTimeout(scheduler, 25);
+  setIsPlaying(true);
 }
 
     // JSX JSX JSX JSX JSX
@@ -132,7 +146,9 @@ return (
       </div>
 
     <button
-    onClick={testClick}>Test
+    onClick={testClick}
+    
+    >{isPlaying ? "Stop" : "Start"}
     </button>
 
     </>
