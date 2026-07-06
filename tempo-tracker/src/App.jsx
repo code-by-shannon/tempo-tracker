@@ -24,11 +24,19 @@ function App() {
     setBpm(e.target.value);
   }
 
-// render song title to jsx
+// render song title to jsx and send to PHP
 const songObject = {title: title, bpm: bpm};
 function renderSongTitle(e){
   e.preventDefault();
-  
+  // send the song to PHP
+  fetch
+  ("./tempo-api/addSong.php", {
+    method: "POST",
+    body: 
+  })
+    .then( (response) => response.text() )
+    .then( (data) => console.log(data) );
+
   setSongs([...songs, songObject]);
   setTitle('');
   setBpm('');
