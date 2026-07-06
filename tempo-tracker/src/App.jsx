@@ -32,7 +32,8 @@ function renderSongTitle(e){
   fetch
   ("./tempo-api/addSong.php", {
     method: "POST",
-    body: 
+    body: JSON.stringify(songObject),
+    headers: {"Content-type": "application/json"}
   })
     .then( (response) => response.text() )
     .then( (data) => console.log(data) );
