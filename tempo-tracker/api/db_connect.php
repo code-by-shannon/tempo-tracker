@@ -11,6 +11,4 @@ if ($dbc->connect_error) {
     die("Connection failed: " . $dbc->connect_error);
 }
 
-
-echo "Connected successfully!";
 ?>

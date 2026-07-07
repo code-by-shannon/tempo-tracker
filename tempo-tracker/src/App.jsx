@@ -1,6 +1,6 @@
 import { act } from 'react';
-import { useState } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
 
 // connect new audio engine
 const audioContext = new AudioContext();
@@ -42,6 +42,16 @@ function renderSongTitle(e){
   setTitle('');
   setBpm('');
 }
+
+// get data from tables db
+useEffect( ()=> {
+  fetch('./tempo-api/getSongs.php')
+    .then((response) => response.json())
+    .then((data)=>{
+      setSongs(data)
+      console.log(data)});
+    
+}, []);
 
 // delete li (title, bpm, etc)
 function deleteFunction(indexToDelete){
