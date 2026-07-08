@@ -44,25 +44,40 @@ function renderSongTitle(e){
 }
 
 // get data from tables db
-useEffect( ()=> {
-  fetch('./tempo-api/getSongs.php')
-    .then((response) => response.json())
+useEffect( () => {
+  fetch("./tempo-api/getSongs.php")
+    .then( (response) => {
+      console.log("got response from db fetch for songs to render");
+      return response.json();
+    })
     .then((data)=>{
-      setSongs(data)
-      console.log(data)});
-    
-}, []);
+      setSongs(data);
+      console.log('song data on browser refresh: ', data);
+    })
+    .catch( (err)  => console.log(err));
+  }, []);
+
+  console.log("current songs state:", songs);
 
 // delete li (title, bpm, etc)
-function deleteFunction(indexToDelete){
-    const newArray = songs.filter( (song, index) => index !== indexToDelete);
+function deleteFunction(idToDelete){
+  console.log('deleted id:', idToDelete);
+    const newArray = songs.filter( (song) => song.id !== idToDelete);
     setSongs(newArray);
+
+  fetch("./tempo-api/deleteSong.php", {
+  method: "POST",
+  headers: {
+    "Content-type": "application/json",
+  },
+  body: JSON.stringify({id:idToDelete}),
+  });
+  
 }
 
 // fire function to handle clicking BPM button
 function handleBpmButtonClick(bpm){
   setActiveBPM(bpm);
-  
 }
 
 // sets click parameters (tone, length etc. ) for 1 click at a scheduled time
@@ -158,7 +173,7 @@ return (
               <button
               onClick={()=> handleBpmButtonClick(song.bpm)}>{song.bpm} </button>
               <button
-              onClick={()=> deleteFunction(index) }
+              onClick={()=> deleteFunction(song.id) }
               >Delete</button></li>
           ))}
         </ul>
