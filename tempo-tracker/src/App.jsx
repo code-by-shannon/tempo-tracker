@@ -133,7 +133,13 @@ function scheduler(){
     // JSX JSX JSX JSX JSX
 return (
     <>
-      <h1>Perfect Tempo</h1>
+      <div className="header">
+      <img 
+          src="imgs/drum_icon.png" alt="drum icon"
+          className='drum_icon' />
+        <h1>Perfect Tempo</h1>
+      </div>
+      
 
       <div className ="form-container">
       <form>
@@ -165,25 +171,29 @@ return (
         </div>
 </form>
 </div>
-      <div>
+      <div className='song-list-and-start-btn'>
         <ul className="p-song-list">
           {songs.map((song, index) => (
             <li key={index}>
-              {song.title}: 
+              <span>{song.title}</span> 
               <button
+              className='bpm-button'
               onClick={()=> handleBpmButtonClick(song.bpm)}>{song.bpm} </button>
               <button
               onClick={()=> deleteFunction(song.id) }
               >Delete</button></li>
           ))}
         </ul>
-      </div>
+      
 
     <button
+    className='start-button'
     onClick={testClick}
+    
     
     >{isPlaying ? "Stop" : "Start"}
     </button>
+    </div>
 
     </>
   )
