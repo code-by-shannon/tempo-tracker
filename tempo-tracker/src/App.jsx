@@ -99,14 +99,18 @@ function click(time){
 };
 
 // on Test button click
-function testClick(){
-  
-  if(!isMetronomeRunning){
+function testClick() {
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+
+  if (!isMetronomeRunning) {
     isMetronomeRunning = true;
     nextClickTime = audioContext.currentTime;
     scheduler();
-
-  } else isMetronomeRunning = false;
+  } else {
+    isMetronomeRunning = false;
+  }
 }
 
 // sets beat interval parameters based on selected BPM
@@ -154,7 +158,7 @@ return (
         />
 {/* input for BPM */}
       <div className ='bpm-and-button'>
-        <label htmlFor="bpm">Beats Per Minute: </label>
+        <label htmlFor="bpm" className="bpm">Beats Per Minute: </label>
         <input
           onChange={ handleBpmChange }
           type="number"
@@ -165,12 +169,16 @@ return (
           value={bpm}
         />
 
-        <button type="submit"
+        <button 
+                className='save-btn'
+                type="submit"
                 onClick={ renderSongTitle }
         >Save Song</button>
         </div>
 </form>
 </div>
+
+{/* rendering song list */}
       <div className='song-list-and-start-btn'>
         <ul className="p-song-list">
           {songs.map((song, index) => (
@@ -193,8 +201,10 @@ return (
     
     >{isPlaying ? "Stop" : "Start"}
     </button>
-    </div>
 
+    </div>
+    
+    <footer>tempo tracker v1.0.0</footer>
     </>
   )
 }
