@@ -15,6 +15,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [isPulsing, setIsPulsing] = useState(false);
+  const [showListMenu, setShowListMenu] = useState(false);
 
 // track song title input
   function handleSongChange(e) {
@@ -45,24 +46,29 @@ function renderSongTitle(e){
   setBpm('');
 }
 
-// get data from tables db
-useEffect( () => {
-  // local dev work
-  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSongs.php")
-  // live site deployment
-  // fetch("./tempo-api/getSongs.php")
-    .then( (response) => {
-      console.log("got response from db fetch for songs to render");
-      return response.json();
-    })
-    .then((data)=>{
-      setSongs(data);
-      console.log('song data on browser refresh: ', data);
-    })
-    .catch( (err)  => console.log(err));
-  }, []);
+// set list load or set list create button
+function handleNotePadClick(){
+  setShowListMenu(prev => !prev); 
+}
 
-  console.log("current songs state:", songs);
+// get data from tables db on initial load
+// useEffect( () => {
+//   local dev work
+//   fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSongs.php")
+//   live site deployment
+//   fetch("./tempo-api/getSongs.php")
+//     .then( (response) => {
+//       console.log("got response from db fetch for songs to render");
+//       return response.json();
+//     })
+//     .then((data)=>{
+//       setSongs(data);
+//       console.log('song data on browser refresh: ', data);
+//     })
+//     .catch( (err)  => console.log(err));
+//   }, []);
+
+//   console.log("current songs state:", songs);
 
 // delete li (title, bpm, etc)
 function deleteFunction(idToDelete){
@@ -86,10 +92,6 @@ function handleBpmButtonClick(song){
   setCurrentSong(song);
   
 }
-
-console.log(isPulsing);
-
-console.log(`Current Song: ${currentSong?.title}`);
 
 // sets click parameters (tone, length etc. ) for 1 click at a scheduled time
 function click(time){
@@ -137,6 +139,7 @@ function scheduleBeats(){
   click(nextClickTime);
 }
 
+// Metronome On/Off Check
 function scheduler(){
   if(!isMetronomeRunning){
     setIsPlaying(false);
@@ -150,7 +153,7 @@ function scheduler(){
   setIsPlaying(true);
 }
 
-    // JSX JSX JSX JSX JSX
+// JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
     <>
       <div className="header">
@@ -159,9 +162,19 @@ return (
           className='drum_icon' />
         <h1>Perfect Tempo</h1>
         <img 
+          onClick={ handleNotePadClick }
           src="imgs/note.png" alt="drum icon"
           className='drum_icon' />
       </div>
+
+    { showListMenu && (
+      <div className='dropdown_list'>
+        <p>Black Sabbath</p>
+        <p>Create New Setlist</p>
+      </div>
+    )}
+    
+
       
 
       <div className ="form-container">
@@ -175,7 +188,7 @@ return (
           placeholder="Shining Star"
           value={title}
         />
-{/* input for BPM */}
+{/* BPM input */}
       <div className ='bpm-and-button'>
         <label htmlFor="bpm" className="bpm">Beats Per Minute: </label>
         <input
@@ -187,7 +200,7 @@ return (
           placeholder="120"
           value={bpm}
         />
-
+{/* Save Song Button */}
         <button 
                 className='save-btn'
                 type="submit"
@@ -197,8 +210,12 @@ return (
 </form>
 </div>
 
+<div>
+  <p className='select_setlist_nag'>Please select or create a setlist using the notepad above</p>
+</div>
+
 {/* rendering song list */}
-      <div className='song-list-and-start-btn'>
+<div className='song-list-and-start-btn'>
         <ul className="p-song-list">
           {songs.map((song, index) => (
             <li key={index}>
@@ -216,7 +233,7 @@ return (
           ))}
         </ul>
       
-
+{/* start metronome button */}
     <button
     className={ `start-button ${ isPulsing ? "pulse" : ""}` }
     
@@ -231,9 +248,7 @@ return (
       <span>{currentSong?.title}</span>
       <span>{currentSong?.bpm} BPM</span>
     </p>
-    
-
-    </div>
+</div>
     
     <footer>tempo tracker v1.0.0</footer>
     </>
