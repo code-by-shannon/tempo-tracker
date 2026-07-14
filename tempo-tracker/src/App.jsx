@@ -13,6 +13,7 @@ function App() {
   const [songs, setSongs] = useState([]);
   const [activeBPM, setActiveBPM] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState(null);
 
 // track song title input
   function handleSongChange(e) {
@@ -45,7 +46,10 @@ function renderSongTitle(e){
 
 // get data from tables db
 useEffect( () => {
-  fetch("./tempo-api/getSongs.php")
+  // local dev work
+  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSongs.php")
+  // live site deployment
+  // fetch("./tempo-api/getSongs.php")
     .then( (response) => {
       console.log("got response from db fetch for songs to render");
       return response.json();
@@ -75,10 +79,14 @@ function deleteFunction(idToDelete){
   
 }
 
-// fire function to handle clicking BPM button
-function handleBpmButtonClick(bpm){
-  setActiveBPM(bpm);
+// handleclick BPM button
+function handleBpmButtonClick(song){
+  setActiveBPM(song.bpm);
+  setCurrentSong(song);
+  console.log(`title and bpm log: ${song.title}, ${song.bpm}`);
 }
+
+console.log(`Current Song: ${currentSong?.title}`);
 
 // sets click parameters (tone, length etc. ) for 1 click at a scheduled time
 function click(time){
@@ -121,7 +129,6 @@ function scheduleBeats(){
 }
 
 function scheduler(){
-  
   if(!isMetronomeRunning){
     setIsPlaying(false);
     return;
@@ -184,12 +191,16 @@ return (
           {songs.map((song, index) => (
             <li key={index}>
               <span>{song.title}</span> 
+              
               <button
               className='bpm-button'
-              onClick={()=> handleBpmButtonClick(song.bpm)}>{song.bpm} </button>
+              onClick={()=> handleBpmButtonClick(song)}>{song.bpm} 
+              </button>
+              
               <button
               onClick={()=> deleteFunction(song.id) }
-              >Delete</button></li>
+              >Delete
+              </button></li>
           ))}
         </ul>
       
@@ -201,6 +212,13 @@ return (
     
     >{isPlaying ? "Stop" : "Start"}
     </button>
+
+    <p className="current_song">
+      <span>Selected Song:</span>
+      <span>{currentSong?.title}</span>
+      <span>{currentSong?.bpm} BPM</span>
+    </p>
+    
 
     </div>
     

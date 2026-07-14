@@ -1,5 +1,7 @@
 <?php
 
+include 'cors.php';
+
 $host = "localhost";
 $dbname = "dbb35dzzyiahfr";
 $username = "uwwxkxxqcmxwe";

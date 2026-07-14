@@ -1,9 +1,6 @@
-*{
-  
-}
-
 body{
   background-color: rgb(10, 5, 0);
+  
 
   background-image: url('/imgs/bgimg.png');
   background-repeat: no-repeat;
@@ -140,6 +137,16 @@ li span{
   opacity: 0.8;
   width:50%;
   margin: 8rem auto;
+}
+
+.current_song{
+  font-size: 2rem;
+  width:100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color:coral;
 }
 
 footer{
