@@ -14,6 +14,7 @@ function App() {
   const [activeBPM, setActiveBPM] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
+  const [isPulsing, setIsPulsing] = useState(false);
 
 // track song title input
   function handleSongChange(e) {
@@ -83,8 +84,10 @@ function deleteFunction(idToDelete){
 function handleBpmButtonClick(song){
   setActiveBPM(song.bpm);
   setCurrentSong(song);
-  console.log(`title and bpm log: ${song.title}, ${song.bpm}`);
+  
 }
+
+console.log(isPulsing);
 
 console.log(`Current Song: ${currentSong?.title}`);
 
@@ -104,6 +107,12 @@ function click(time){
   oscillator.start(time);
   oscillator.stop(time + 0.05);
   console.log(`audio context: ${time}`);
+
+  setIsPulsing(true);
+
+  setTimeout( ()=> {
+    setIsPulsing(false)
+  }, 100)
 };
 
 // on Test button click
@@ -145,10 +154,13 @@ function scheduler(){
 return (
     <>
       <div className="header">
-      <img 
+        <img 
           src="imgs/drum_icon.png" alt="drum icon"
           className='drum_icon' />
         <h1>Perfect Tempo</h1>
+        <img 
+          src="imgs/note.png" alt="drum icon"
+          className='drum_icon' />
       </div>
       
 
@@ -206,7 +218,8 @@ return (
       
 
     <button
-    className='start-button'
+    className={ `start-button ${ isPulsing ? "pulse" : ""}` }
+    
     onClick={testClick}
     
     

@@ -128,6 +128,15 @@ li span{
   cursor: pointer;
 }
 
+/* class to add button pulse */
+.pulse {
+  background-color: coral;
+  color: white;
+
+  box-shadow: 0 0 10px coral;
+
+  transform: scale(1.03);
+}
 
 .song-list-and-start-btn{
   border-radius: 8px;
