@@ -43,7 +43,7 @@ function renderSongTitle(e){
     headers: {"Content-type": "application/json"}
   })
     .then( (response) => response.text() )
-    .then( (data) => console.log(data) );
+    // .then( (data) => console.log(data) );
 
   setSongs([...songs, songObject]);
   setTitle('');
@@ -56,9 +56,9 @@ function handleNotePadClick(){
 }
 
 // retrieve setList from db and render
-function fetchSetList(setList){
-  console.log(setList);
-}
+// function fetchSetList(setList){
+//   console.log(setList);
+// }
 
 // get setLists from db
 useEffect( () => {
@@ -67,20 +67,25 @@ useEffect( () => {
 //   live site deployment
 //   fetch("./tempo-api/getSongs.php")
     .then( (response) => {
-      console.log("setLists queried ✅");
+      // console.log("setLists queried ✅");
       return response.json();
     })
     .then((data)=>{
       setSetList(data);
-      console.log('setList data on browser refresh: ', data);
+      // console.log('setList data on browser refresh: ', data);
     })
     .catch( (err)  => console.log(err));
   }, []);
 
+// Dropdown unique setlist fetch
+function handleUniqueSetList(banana){
+  console.log(banana);
+}
+
 // delete li (title, bpm, etc)
 function deleteFunction(idToDelete)
 {
-  console.log('deleted id:', idToDelete);
+  // console.log('deleted id:', idToDelete);
     const newArray = songs.filter( (song) => song.id !== idToDelete);
     setSongs(newArray);
 
@@ -121,7 +126,7 @@ function click(time){
 
   oscillator.start(time);
   oscillator.stop(time + 0.05);
-  console.log(`audio context: ${time}`);
+  // console.log(`audio context: ${time}`);
 
   setIsPulsing(true);
 
@@ -166,11 +171,13 @@ function scheduler(){
   setIsPlaying(true);
 }
 
-console.log("songs:", songs)
+// console.log("songs:", songs)
+// console.log(setList);
 
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
     <>
+{/* NotePad click handle for dropdown*/}    
       <div className="header">
         <img 
           src="imgs/drum_icon.png" alt="drum icon"
@@ -186,9 +193,10 @@ return (
     { showListMenu && (
       <div className='dropdown_list'>
         <ul className='setList_render'>
-          {setList.map((setlist, index)=>(
-            <li key={index }>
-              <span>{setlist.setlist}</span>
+          {setList.map((setlistRender, index)=>(
+            <li key={index }
+                onClick={ () => handleUniqueSetList(setlistRender) }>
+              <span>{setlistRender.setlist}</span>
             </li>
           ))}
           <li>Create New Setlist</li>
