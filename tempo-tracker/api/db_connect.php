@@ -1,11 +1,9 @@
 <?php
 
-include 'cors.php';
-
 $host = "localhost";
 $dbname = "dbb35dzzyiahfr";
 $username = "uwwxkxxqcmxwe";
-$password = "553&7w3_A@~3";
+$password = "ik1k*d3s@41x";
 
 $dbc = new mysqli($host, $username, $password, $dbname);
 

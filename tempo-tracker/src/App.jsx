@@ -15,7 +15,11 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [isPulsing, setIsPulsing] = useState(false);
+  // display/hide the dropdown 
   const [showListMenu, setShowListMenu] = useState(false);
+  // store setList from db
+  const [setList, setSetList] = useState('');
+ 
 
 // track song title input
   function handleSongChange(e) {
@@ -46,37 +50,46 @@ function renderSongTitle(e){
   setBpm('');
 }
 
-// set list load or set list create button
+// SetList load and SetList create button
 function handleNotePadClick(){
   setShowListMenu(prev => !prev); 
 }
 
-// get data from tables db on initial load
-// useEffect( () => {
+// retrieve setList from db and render
+function fetchSetList(setList){
+  console.log(setList);
+}
+
+// get setLists from db
+useEffect( () => {
 //   local dev work
-//   fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSongs.php")
+  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSetLists.php")
 //   live site deployment
 //   fetch("./tempo-api/getSongs.php")
-//     .then( (response) => {
-//       console.log("got response from db fetch for songs to render");
-//       return response.json();
-//     })
-//     .then((data)=>{
-//       setSongs(data);
-//       console.log('song data on browser refresh: ', data);
-//     })
-//     .catch( (err)  => console.log(err));
-//   }, []);
-
-//   console.log("current songs state:", songs);
+    .then( (response) => {
+      console.log("setLists queried ✅");
+      return response.json();
+    })
+    .then((data)=>{
+      setSetList(data);
+      console.log('setList data on browser refresh: ', data);
+    })
+    .catch( (err)  => console.log(err));
+  }, []);
 
 // delete li (title, bpm, etc)
-function deleteFunction(idToDelete){
+function deleteFunction(idToDelete)
+{
   console.log('deleted id:', idToDelete);
     const newArray = songs.filter( (song) => song.id !== idToDelete);
     setSongs(newArray);
 
-  fetch("./tempo-api/deleteSong.php", {
+  // live deploy fetch  
+  // fetch("./tempo-api/deleteSong.php",
+  // local fetch
+  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/deleteSong.php",
+  
+  {
   method: "POST",
   headers: {
     "Content-type": "application/json",
@@ -153,6 +166,8 @@ function scheduler(){
   setIsPlaying(true);
 }
 
+console.log("songs:", songs)
+
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
     <>
@@ -167,16 +182,22 @@ return (
           className='drum_icon' />
       </div>
 
+{/* Set List Dropdown Names and Render */}
     { showListMenu && (
       <div className='dropdown_list'>
-        <p>Black Sabbath</p>
-        <p>Create New Setlist</p>
+        <ul className='setList_render'>
+          {setList.map((setlist, index)=>(
+            <li key={index }>
+              <span>{setlist.setlist}</span>
+            </li>
+          ))}
+          <li>Create New Setlist</li>
+        </ul>
+        
       </div>
     )}
     
-
-      
-
+{/* Form Container */}
       <div className ="form-container">
       <form>
 {/* input for song title */}
@@ -210,6 +231,7 @@ return (
 </form>
 </div>
 
+{/* Select SetList Nag */}
 <div>
   <p className='select_setlist_nag'>Please select or create a setlist using the notepad above</p>
 </div>

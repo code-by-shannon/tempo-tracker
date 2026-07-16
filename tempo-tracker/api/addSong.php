@@ -1,11 +1,6 @@
 <?php
 
-// error reporting
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-// db connect
-require_once 'db_connect.php';
+include 'include.php';
 
 // read the raw JSON coming from the browser
 $json = file_get_contents("php://input");

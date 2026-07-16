@@ -1,11 +1,6 @@
 <?php
 
-include 'cors.php';
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-require_once 'db_connect.php';
+include 'include.php';
 
 // delete item from db
 // read the raw JSON coming from the browser

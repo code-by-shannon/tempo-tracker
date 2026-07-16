@@ -1,11 +1,7 @@
 <?php
 
-include 'cors.php';
+include 'include.php';
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-require_once 'db_connect.php';
 
 // query db for everything from tables
 $result = $dbc -> query("SELECT * FROM songs");
