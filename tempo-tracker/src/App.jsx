@@ -8,9 +8,13 @@ let nextClickTime = 0;
 let isMetronomeRunning = false;
 
 function App() {
+{/* use states */}
   const [title, setTitle] = useState('');
   const [bpm, setBpm] = useState(120);
+  
+  //  const to hold current selected setlist
   const [songs, setSongs] = useState([]);
+  
   const [activeBPM, setActiveBPM] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
@@ -33,6 +37,8 @@ function App() {
 
 // render song title to jsx and send to PHP
 const songObject = {title: title, bpm: bpm};
+// sends new song to PHP to insert into db
+// updates local songs array so UI changes
 function renderSongTitle(e){
   e.preventDefault();
   // send the song to PHP
@@ -50,11 +56,10 @@ function renderSongTitle(e){
   setBpm('');
 }
 
-// SetList load and SetList create button
+// SetList names load and Create New Setlist button
 function handleNotePadClick(){
   setShowListMenu(prev => !prev); 
 }
-
 // retrieve setList from db and render
 // function fetchSetList(setList){
 //   console.log(setList);
@@ -78,8 +83,25 @@ useEffect( () => {
   }, []);
 
 // Dropdown unique setlist fetch
-function handleUniqueSetList(banana){
-  console.log(banana);
+function handleUniqueSetList(obj){
+  console.log('clicked');
+  // value to send for db query
+  const setListName = obj.setlist;
+  console.log(setListName);
+  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getUniqueSetList.php", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    setlist: setListName,
+  }),
+})
+.then((response) => response.json())
+.then((data) => {
+  console.log(data);
+  setSongs(data);
+});
 }
 
 // delete li (title, bpm, etc)
