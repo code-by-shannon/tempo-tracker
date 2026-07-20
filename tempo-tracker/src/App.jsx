@@ -267,39 +267,50 @@ return (
 </div>
 
 {/* rendering song list */}
-<div className='song-list-and-start-btn'>
-        <ul className="p-song-list">
-          {songs.map((song, index) => (
-            <li key={index}>
-              <span>{song.title}</span> 
-              
-              <button
-              className='bpm-button'
-              onClick={()=> handleBpmButtonClick(song)}>{song.bpm} 
-              </button>
-              
-              <button
-              onClick={()=> deleteFunction(song.id) }
-              >Delete
-              </button></li>
-          ))}
-        </ul>
-      
-{/* start metronome button */}
-    <button
-    className={ `start-button ${ isPulsing ? "pulse" : ""}` }
-    
-    onClick={testClick}
-    
-    
-    >{isPlaying ? "Stop" : "Start"}
-    </button>
+{/* rendering song list */}
+<div className="song-list-and-start-btn">
 
-    <p className="current_song">
-      <span>Selected Song:</span>
-      <span>{currentSong?.title}</span>
-      <span>{currentSong?.bpm} BPM</span>
-    </p>
+  <h2>Current Set List</h2>
+
+  <table className="song-table">
+
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>BPM</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {songs.map((song) => (
+        <tr key={song.id}>
+
+          <td>{song.title}</td>
+
+          <td>
+            <button
+              className="bpm-button"
+              onClick={() => handleBpmButtonClick(song)}
+            >
+              {song.bpm}
+            </button>
+          </td>
+
+          <td>
+            <button
+              onClick={() => deleteFunction(song.id)}
+            >
+              Edit
+            </button>
+          </td>
+
+        </tr>
+      ))}
+    </tbody>
+
+  </table>
+
 </div>
     
     <footer>tempo tracker v1.0.0</footer>

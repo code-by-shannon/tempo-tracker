@@ -1,3 +1,7 @@
+*{
+  color:coral;
+}
+
 body{
   background-color: rgb(10, 5, 0);
   
@@ -102,28 +106,40 @@ button {
   color:white;
 }
 
-
-/* song list rendered */
-.p-song-list{
+/* Set list render */
+/* song table render */
+.song-table{
+  width:100%;
+  border-collapse:collapse;
   color:white;
-  font-size:1.5rem;
-  list-style-type: none;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color:rgba(0,0,0,.8);
 }
 
-.p-song-list li{
-  display:flex;
-  padding:5px;
-  margin:auto;
-  gap:12px;
-  align-items: center;
-  justify-content: center;
-
-  border-bottom: grey 1px solid;
+.song-table th{
+  padding:10px;
+  text-align:left;
+  border-bottom:2px solid grey;
 }
 
-li span{
-  flex: 1;
+.song-table td{
+  padding:8px 10px;
+  border-bottom:1px solid grey;
+}
+
+.song-table th:nth-child(2),
+.song-table td:nth-child(2){
+  width:70px;
+  text-align:center;
+}
+
+.song-table th:nth-child(3),
+.song-table td:nth-child(3){
+  width:80px;
+  text-align:center;
+}
+
+.bpm-button{
+  width:60px;
 }
 
 .bpm-button{
