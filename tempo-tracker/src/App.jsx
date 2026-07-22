@@ -1,6 +1,7 @@
 import { act } from 'react';
 import { useState, useEffect } from 'react';
 import './App.css';
+import EditSong from "./EditSong";
 
 // connect new audio engine
 const audioContext = new AudioContext();
@@ -23,6 +24,8 @@ function App() {
   const [showListMenu, setShowListMenu] = useState(false);
   // store setList from db
   const [setList, setSetList] = useState('');
+  // EditSong.jsx (for rendering editing screen)
+  const [editingSong, setEditingSong] = useState(null);
  
 
 // track song title input
@@ -193,9 +196,19 @@ function scheduler(){
   setIsPlaying(true);
 }
 
-// console.log("songs:", songs)
-// console.log(setList);
 
+
+{/* handle edit button click and pass value to state */}
+function handleEditSong(song){
+  setEditingSong(song);
+}
+
+{/* Editing Song Render */}
+if (editingSong) {
+  return <EditSong 
+            song={editingSong}
+            setEditSong={setEditingSong} />;
+}
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
     <>
@@ -299,7 +312,7 @@ return (
 
           <td>
             <button
-              onClick={() => deleteFunction(song.id)}
+              onClick={() => handleEditSong(song)}
             >
               Edit
             </button>
