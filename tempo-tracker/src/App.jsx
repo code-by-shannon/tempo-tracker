@@ -207,7 +207,9 @@ function handleEditSong(song){
 if (editingSong) {
   return <EditSong 
             song={editingSong}
-            setEditSong={setEditingSong} />;
+            setEditSong={setEditingSong}
+            songs={songs}
+            setSongs={setSongs} />;
 }
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
