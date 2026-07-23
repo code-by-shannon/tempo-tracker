@@ -326,6 +326,15 @@ return (
 
   </table>
 
+  <button
+    
+    className={ `start-button ${ isPulsing ? "pulse" : ""}` }
+    onClick={testClick}
+
+
+    >{isPlaying ? "Stop" : "Start"}
+    </button>
+
 </div>
     
     <footer>tempo tracker v1.0.0</footer>
