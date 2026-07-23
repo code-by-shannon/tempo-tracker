@@ -25,4 +25,5 @@ while ($row = mysqli_fetch_assoc($result)) {
     $songs[] = $row;
 }
 
+
 echo json_encode($songs);

@@ -73,7 +73,7 @@ useEffect( () => {
 //   local dev work
   // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSetLists.php")
 //   live site deployment
-  fetch("./tempo-api/getSongs.php")
+  fetch("./tempo-api/getSetLists.php")
     .then( (response) => {
       // console.log("setLists queried ✅");
       return response.json();
