@@ -3,6 +3,11 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import EditSong from "./EditSong";
 
+// toggle for local vs remote deployment
+const API_URL = import.meta.env.DEV
+  ? "https://codebyshannon.com/projects/tempo_tracker/tempo-api/"
+  : "./tempo-api/";
+
 // connect new audio engine
 const audioContext = new AudioContext();
 let nextClickTime = 0;
@@ -46,7 +51,7 @@ function renderSongTitle(e){
   e.preventDefault();
   // send the song to PHP
   fetch
-  ("./tempo-api/addSong.php", {
+  ("./addSong.php", {
     method: "POST",
     body: JSON.stringify(songObject),
     headers: {"Content-type": "application/json"}
@@ -70,10 +75,8 @@ function handleNotePadClick(){
 
 // get setLists from db
 useEffect( () => {
-//   local dev work
-  // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSetLists.php")
-//   live site deployment
-  fetch("./tempo-api/getSetLists.php")
+
+  fetch(`${API_URL}./getSetLists.php`)
     .then( (response) => {
       // console.log("setLists queried ✅");
       return response.json();
@@ -91,8 +94,8 @@ function handleUniqueSetList(obj){
   // value to send for db query
   const setListName = obj.setlist;
   console.log(setListName);
-  // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getUniqueSetList.php"
-  fetch("./tempo-api/getUniqueSetList.php", {
+
+  fetch(`${API_URL}./getUniqueSetList.php`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -116,10 +119,8 @@ function deleteFunction(idToDelete)
     setSongs(newArray);
 
   // live deploy fetch  
-  fetch("./tempo-api/deleteSong.php",
-  // local fetch
-  // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/deleteSong.php"
-  // ,
+  fetch(`${API_URL}./deleteSong.php`,
+
   
   {
   method: "POST",
