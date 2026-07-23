@@ -15,7 +15,9 @@ function EditSong( {song, setEditSong, songs, setSongs} ) {
     }
     
 function handleUpdateSong() {
-    fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/updateSong.php", {
+    // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/updateSong.php",
+    fetch("./tempo-api/updateSong.php",
+    {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

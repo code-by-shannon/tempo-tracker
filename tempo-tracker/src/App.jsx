@@ -71,9 +71,9 @@ function handleNotePadClick(){
 // get setLists from db
 useEffect( () => {
 //   local dev work
-  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSetLists.php")
+  // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getSetLists.php")
 //   live site deployment
-//   fetch("./tempo-api/getSongs.php")
+  fetch("./tempo-api/getSongs.php")
     .then( (response) => {
       // console.log("setLists queried ✅");
       return response.json();
@@ -91,15 +91,16 @@ function handleUniqueSetList(obj){
   // value to send for db query
   const setListName = obj.setlist;
   console.log(setListName);
-  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getUniqueSetList.php", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    setlist: setListName,
-  }),
-})
+  // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/getUniqueSetList.php"
+  fetch("./tempo-api/getUniqueSetList.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      setlist: setListName,
+    }),
+  })
 .then((response) => response.json())
 .then((data) => {
   console.log(data);
@@ -115,9 +116,10 @@ function deleteFunction(idToDelete)
     setSongs(newArray);
 
   // live deploy fetch  
-  // fetch("./tempo-api/deleteSong.php",
+  fetch("./tempo-api/deleteSong.php",
   // local fetch
-  fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/deleteSong.php",
+  // fetch("https://codebyshannon.com/projects/tempo_tracker/tempo-api/deleteSong.php"
+  // ,
   
   {
   method: "POST",
