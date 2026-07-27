@@ -146,13 +146,17 @@ button {
   width:40px;
 }
 
-.start-button{
+.start-button {
   display: block;
-  margin:auto;
-  
+  margin: 15px auto 10px;
+
   padding: 22px 50px;
   font-size: 1.6rem;
   font-weight: bold;
+
+  background-color: coral;
+  color: black;
+  text-shadow: 1px 1px 2px white;
 
   border-radius: 12px;
   cursor: pointer;
@@ -219,15 +223,7 @@ footer{
     list-style: none;
   }
 
-  .start-button{
-    margin: 15px auto 10px;
-
-    background-color: coral;
-    color: black;
-    text-shadow: 1px 1px 2px white;
-  }
-
-  .save-btn{
+    .save-btn{
     background-color: white;
     color:black;
   }
