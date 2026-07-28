@@ -1,7 +1,9 @@
 import { act } from 'react';
 import { useState, useEffect } from 'react';
 import './App.css';
+
 import EditSong from "./EditSong";
+import EnterNewSong from "./EnterNewSong";
 
 // toggle for local vs remote deployment
 const API_URL = import.meta.env.DEV
@@ -245,39 +247,12 @@ return (
       </div>
     )}
     
-{/* Form Container */}
-      <div className ="form-container">
-      <form>
-{/* input for song title */}
-        <label className='song-label' htmlFor="songTitle">Enter Song Name:</label>
-        <input
-          onChange={handleSongChange}
-          type="text"
-          id="songTitle"
-          placeholder="Shining Star"
-          value={title}
-        />
-{/* BPM input */}
-      <div className ='bpm-and-button'>
-        <label htmlFor="bpm" className="bpm">Beats Per Minute: </label>
-        <input
-          onChange={ handleBpmChange }
-          type="number"
-          id="bpm"
-          min="40"
-          max="300"
-          placeholder="120"
-          value={bpm}
-        />
-{/* Save Song Button */}
-        <button 
-                className='save-btn'
-                type="submit"
-                onClick={ renderSongTitle }
-        >Save Song</button>
-        </div>
-</form>
-</div>
+<EnterNewSong 
+  title={title}
+  handleSongChange={handleSongChange}
+  handleBpmChange={handleBpmChange}
+  renderSongTitle={renderSongTitle}
+/>
 
 {/* Select SetList Nag */}
 <div>
