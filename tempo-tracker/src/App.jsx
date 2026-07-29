@@ -5,6 +5,7 @@ import './App.css';
 import EditSong from "./EditSong";
 import EnterNewSong from "./EnterNewSong";
 
+
 // toggle for local vs remote deployment
 const API_URL = import.meta.env.DEV
   ? "https://codebyshannon.com/projects/tempo_tracker/tempo-api/"
@@ -33,7 +34,13 @@ function App() {
   const [setList, setSetList] = useState('');
   // EditSong.jsx (for rendering editing screen)
   const [editingSong, setEditingSong] = useState(null);
- 
+  // Form for entering new songs into new setlist state
+  const [isEnteringNewSongs, setIsEnteringNewSongs] = useState(false);
+
+// handle the click on the li item that opens the form to create a new setlist
+const handleCreateNewSetlist = () => {
+  setIsEnteringNewSongs(true);
+};
 
 // track song title input
   function handleSongChange(e) {
@@ -241,18 +248,28 @@ return (
               <span>{setlistRender.setlist}</span>
             </li>
           ))}
-          <li>Create New Setlist</li>
+{/* Create a new setlist from scratch*/}          
+          <li
+          className="create_new_setlist_li"
+          onClick={handleCreateNewSetlist}
+          >
+  Create New Setlist
+</li>
         </ul>
         
       </div>
     )}
-    
-<EnterNewSong 
+
+{isEnteringNewSongs && (
+  <EnterNewSong 
+  setIsEnteringNewSongs={setIsEnteringNewSongs}
   title={title}
   handleSongChange={handleSongChange}
   handleBpmChange={handleBpmChange}
   renderSongTitle={renderSongTitle}
 />
+)}    
+
 
 {/* Select SetList Nag */}
 <div>

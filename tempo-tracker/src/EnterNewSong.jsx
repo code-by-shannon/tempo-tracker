@@ -1,4 +1,4 @@
-function EnterNewSong({title, bpm, handleSongChange, renderSongTitle, handleBpmChange}) {
+function EnterNewSong({title, bpm, handleSongChange, renderSongTitle, handleBpmChange, setIsEnteringNewSongs}) {
     return (
       <>
 
@@ -32,6 +32,12 @@ function EnterNewSong({title, bpm, handleSongChange, renderSongTitle, handleBpmC
           type="submit"
           onClick={ renderSongTitle }
   >Save Song</button>
+{/* Cancel Button */}
+  <button
+          className='save-btn'
+          type='button'
+          onClick={()=>setIsEnteringNewSongs(false)}
+  >Cancel</button>
   </div>
 </form>
 </div>
@@ -40,6 +46,8 @@ function EnterNewSong({title, bpm, handleSongChange, renderSongTitle, handleBpmC
       </>
     );
   }
+
+
   
   export default EnterNewSong;
 
