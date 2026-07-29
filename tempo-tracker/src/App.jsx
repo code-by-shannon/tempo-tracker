@@ -36,6 +36,8 @@ function App() {
   const [editingSong, setEditingSong] = useState(null);
   // Form for entering new songs into new setlist state
   const [isEnteringNewSongs, setIsEnteringNewSongs] = useState(false);
+  // new setlist input tracker
+  const [newSetListName, setNewSetListName] = useState("");
 
 // handle the click on the li item that opens the form to create a new setlist
 const handleCreateNewSetlist = () => {
@@ -50,6 +52,11 @@ const handleCreateNewSetlist = () => {
 // track bpm input
   function handleBpmChange(e) {
     setBpm(e.target.value);
+  }
+
+// track new setlist name input
+  function handleSetListNameChange(e){
+    setNewSetListName(e.target.value);
   }
 
 // render song title to jsx and send to PHP
@@ -262,7 +269,11 @@ return (
 
 {isEnteringNewSongs && (
   <EnterNewSong 
+  // display or don't display the song entering form
   setIsEnteringNewSongs={setIsEnteringNewSongs}
+  // state that holds the typing into new setlist name
+  newSetListName={newSetListName}
+  handleSetListNameChange={handleSetListNameChange}
   title={title}
   handleSongChange={handleSongChange}
   handleBpmChange={handleBpmChange}

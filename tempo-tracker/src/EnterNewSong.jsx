@@ -1,10 +1,19 @@
-function EnterNewSong({title, bpm, handleSongChange, renderSongTitle, handleBpmChange, setIsEnteringNewSongs}) {
+function EnterNewSong({title, bpm, handleSongChange, renderSongTitle, handleBpmChange, setIsEnteringNewSongs, newSetListName, handleSetListNameChange}) {
     return (
       <>
 
 {/* Form Container */}
 <div className ="form-container">
 <form>
+{/* input for creating new setlist name */}
+  <label htmlFor="newSetListName">Enter New Setlist Name:</label>
+  <input type="text"
+  id="newSetListName"
+  placeholder="Friday Night Setlist" 
+  value={newSetListName}
+  onChange={handleSetListNameChange}
+  />
+
 {/* input for song title */}
   <label className='song-label' htmlFor="songTitle">Enter Song Name:</label>
   <input
