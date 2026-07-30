@@ -92,7 +92,7 @@ function handleNotePadClick(){
 // get setLists from db
 useEffect( () => {
 
-  fetch(`${API_URL}./getSetLists.php`)
+  fetch(`${API_URL}getSetLists.php`)
     .then( (response) => {
       // console.log("setLists queried ✅");
       return response.json();
@@ -111,7 +111,7 @@ function handleUniqueSetList(obj){
   const setListName = obj.setlist;
   console.log(setListName);
 
-  fetch(`${API_URL}./getUniqueSetList.php`, {
+  fetch(`${API_URL}getUniqueSetList.php`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -135,7 +135,7 @@ function deleteFunction(idToDelete)
     setSongs(newArray);
 
   // live deploy fetch  
-  fetch(`${API_URL}./deleteSong.php`,
+  fetch(`${API_URL}deleteSong.php`,
 
   
   {
