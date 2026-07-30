@@ -19,9 +19,16 @@ function EditSong( {song, setEditSong, songs, setSongs} ) {
         bpm: e.target.value,
         });
     }
+
+    function handleTitleChange(e){
+        setEditedSong({
+        ...editedSong,
+        title: e.target.value,
+        })
+    }
     
 function handleUpdateSong() {
-
+    
     fetch(`${API_URL}updateSong.php`,
     {
         method: "POST",
@@ -45,10 +52,16 @@ function handleUpdateSong() {
         setEditSong(null);
     });
 }
+
 {/* return statement return statement */}        
     return (
         <div>
-            <p>{song.title}</p>
+            {/* Title Edit */}
+            <input 
+            type="text"
+            value = {editedSong.title}
+            onChange={handleTitleChange} />
+            {/* BPM edit */}
             <input type="number"
                     value={editedSong.bpm}
                     onChange={handleBpmChange} />
