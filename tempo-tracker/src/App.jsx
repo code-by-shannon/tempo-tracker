@@ -7,7 +7,8 @@ import EnterNewSong from "./EnterNewSong";
 
 
 // toggle for local vs remote deployment
-const API_URL = import.meta.env.DEV
+const API_URL = 
+  import.meta.env.DEV
   ? "https://codebyshannon.com/projects/tempo_tracker/tempo-api/"
   : "./tempo-api/";
 
@@ -60,14 +61,13 @@ const handleCreateNewSetlist = () => {
   }
 
 // render song title to jsx and send to PHP
-const songObject = {title: title, bpm: bpm};
+const songObject = {title: title, bpm: bpm, setlist: newSetListName};
 // sends new song to PHP to insert into db
 // updates local songs array so UI changes
 function renderSongTitle(e){
   e.preventDefault();
   // send the song to PHP
-  fetch
-  ("./addSong.php", {
+  fetch(`${API_URL}addSong.php`, {
     method: "POST",
     body: JSON.stringify(songObject),
     headers: {"Content-type": "application/json"}
@@ -230,6 +230,8 @@ if (editingSong) {
             songs={songs}
             setSongs={setSongs} />;
 }
+
+
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
     <>
@@ -249,8 +251,9 @@ return (
     { showListMenu && (
       <div className='dropdown_list'>
         <ul className='setList_render'>
-          {setList.map((setlistRender, index)=>(
-            <li key={index }
+          {setList.map((setlistRender)=>(
+            
+            <li key={ setlistRender.setlist }
                 onClick={ () => handleUniqueSetList(setlistRender) }>
               <span>{setlistRender.setlist}</span>
             </li>

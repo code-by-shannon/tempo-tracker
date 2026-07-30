@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+// toggle for local vs remote deployment
+const API_URL = 
+  import.meta.env.DEV
+  ? "https://codebyshannon.com/projects/tempo_tracker/tempo-api/"
+  : "./tempo-api/";
+
 
 
 function EditSong( {song, setEditSong, songs, setSongs} ) {
@@ -16,7 +22,7 @@ function EditSong( {song, setEditSong, songs, setSongs} ) {
     
 function handleUpdateSong() {
 
-    fetch(`${API_URL}./updateSong.php`,
+    fetch(`${API_URL}updateSong.php`,
     {
         method: "POST",
         headers: {
