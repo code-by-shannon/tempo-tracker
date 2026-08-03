@@ -138,6 +138,10 @@ button {
   text-align:center;
 }
 
+.active-song {
+  color: limegreen;
+}
+
 .bpm-button{
   width:60px;
 }

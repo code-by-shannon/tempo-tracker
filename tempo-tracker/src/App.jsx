@@ -152,7 +152,7 @@ function deleteFunction(idToDelete)
 function handleBpmButtonClick(song){
   setActiveBPM(song.bpm);
   setCurrentSong(song);
-  
+
 }
 
 // sets click parameters (tone, length etc. ) for 1 click at a scheduled time
@@ -310,7 +310,7 @@ return (
       {songs.map((song) => (
         <tr key={song.id}>
 
-          <td>{song.title}</td>
+          <td className={currentSong?.id === song.id ? "active-song" : ""}>{song.title}</td>
 
           <td>
             <button
