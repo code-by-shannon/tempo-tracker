@@ -142,6 +142,35 @@ button {
   color: limegreen;
 }
 
+.setList_render{
+  border-radius:4px;
+  border:coral solid 3px;
+  background-color:black;
+  opacity:0.8;
+  width:60%;
+  margin:auto;
+  padding:0;
+}
+
+.setList_render li{
+  display:block;
+  color:coral;
+  list-style-type: none;
+  font-size: 2rem;
+  text-align: center;
+  width:100%;
+}
+
+.setList_render li:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+.create_new_setlist_li{
+  font-weight: bold;
+  color:white !important;
+}
+
 .bpm-button{
   width:60px;
 }

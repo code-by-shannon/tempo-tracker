@@ -255,9 +255,10 @@ return (
             
             <li key={ setlistRender.setlist }
                 onClick={ () => handleUniqueSetList(setlistRender) }>
-              <span>{setlistRender.setlist}</span>
+              {setlistRender.setlist}
             </li>
           ))}
+      
 {/* Create a new setlist from scratch*/}          
           <li
           className="create_new_setlist_li"
@@ -286,11 +287,6 @@ return (
 
 
 {/* Select SetList Nag */}
-<div>
-  <p className='select_setlist_nag'>Please select or create a setlist using the notepad above</p>
-</div>
-
-{/* rendering song list */}
 {/* rendering song list */}
 <div className="song-list-and-start-btn">
 
