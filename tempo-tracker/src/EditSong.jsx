@@ -10,7 +10,7 @@ const API_URL =
 
 function EditSong( {song, setEditSong, songs, setSongs} ) {
 
-    // create a new copy of the song obj that can be edited
+// create a new copy of the song obj that can be edited
     const [editedSong, setEditedSong] = useState(song)
 
     function handleBpmChange(e) {
@@ -55,17 +55,31 @@ function handleUpdateSong() {
 
 {/* return statement return statement */}        
     return (
-        <div>
+        <div className='edit_page_div'>
             {/* Title Edit */}
-            <input 
-            type="text"
-            value = {editedSong.title}
-            onChange={handleTitleChange} />
+            <div className="field">
+                <label htmlFor="title">Edit Song Title</label>
+                <input 
+                id="title"
+                type="text"
+                value = {editedSong.title}
+                onChange={handleTitleChange} />
+            </div>
+            
+            
             {/* BPM edit */}
-            <input type="number"
-                    value={editedSong.bpm}
-                    onChange={handleBpmChange} />
+            <div className="field">
+                <label htmlFor="bpm_edit">Edit BPM</label>
+                <input 
+                        id="bpm_edit"
+                        type="number"
+                        value={editedSong.bpm}
+                        onChange={handleBpmChange} />
+            </div>
+            
+            {/* Update Button*/}
             <button
+            id="edit_update_btn"
             onClick={handleUpdateSong}
             >UPDATE</button>
         </div>

@@ -230,6 +230,54 @@ footer{
   text-align: center;
 }
 
+/* edit page */
+.edit_page_div{
+  padding:2rem;
+  display: flex;
+  flex-direction: column;
+  width:60%;
+  margin: 100px auto;
+  background-color: black;
+  opacity:.8;
+  border:solid 2px coral;
+  gap:3rem;
+}
+
+.edit_page_div label{
+  color:coral;
+  font-weight: bold;
+  display:block;
+}
+
+.edit_page_div input{
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-shadow: .5px .5px .5px black;
+  background-color: rgb(58, 31, 5);
+}
+
+.field{
+  display:flex;
+  flex-direction: column;
+  gap:.25rem;
+}
+
+#edit_update_btn{
+  width:30%;
+  margin:auto;
+  font-weight: bold;
+
+  background: rgba(88, 47, 17, 0.8);
+  color: #ff8a5b;
+  border: 1px solid #ff8a5b;
+}
+
+#edit_update_btn:hover{
+  color: antiquewhite;
+}
+
+
+
 /* mobile */
 @media (max-width: 768px) {
 
