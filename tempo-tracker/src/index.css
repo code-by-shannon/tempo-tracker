@@ -262,7 +262,8 @@ footer{
   gap:.25rem;
 }
 
-#edit_update_btn{
+#edit_update_btn,
+#cancel_edit_btn{
   width:30%;
   margin:auto;
   font-weight: bold;

@@ -215,8 +215,6 @@ function scheduler(){
   setIsPlaying(true);
 }
 
-
-
 {/* handle edit button click and pass value to state */}
 function handleEditSong(song){
   setEditingSong(song);
@@ -228,7 +226,13 @@ if (editingSong) {
             song={editingSong}
             setEditSong={setEditingSong}
             songs={songs}
-            setSongs={setSongs} />;
+            setSongs={setSongs}
+            cancelEdit={cancelEdit} />;
+}
+
+{/* Cancel Song Editing and return to SetList*/}
+function cancelEdit(){
+  setEditingSong(null);
 }
 
 
@@ -319,7 +323,11 @@ return (
 
           <td>
             <button
-              onClick={() => handleEditSong(song)}
+              onClick={() => {
+                  console.log('testing edit button');
+                  handleEditSong(song);
+                }}
+                
             >
               Edit
             </button>

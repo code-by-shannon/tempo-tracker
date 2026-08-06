@@ -8,7 +8,7 @@ const API_URL =
 
 
 
-function EditSong( {song, setEditSong, songs, setSongs} ) {
+function EditSong( {song, setEditSong, songs, setSongs, cancelEdit} ) {
 
 // create a new copy of the song obj that can be edited
     const [editedSong, setEditedSong] = useState(song)
@@ -55,6 +55,8 @@ function handleUpdateSong() {
 
 {/* return statement return statement */}        
     return (
+        <>
+        <h1>Edit Screen</h1>
         <div className='edit_page_div'>
             {/* Title Edit */}
             <div className="field">
@@ -82,7 +84,13 @@ function handleUpdateSong() {
             id="edit_update_btn"
             onClick={handleUpdateSong}
             >UPDATE</button>
+            {/* Cancel Button */}
+            <button
+            id="cancel_edit_btn"
+            onClick={cancelEdit}
+            >CANCEL</button>
         </div>
+        </>
         );
     }
 
