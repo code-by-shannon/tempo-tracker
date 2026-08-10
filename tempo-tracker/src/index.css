@@ -15,6 +15,8 @@ body{
   font-family: 'Inter', sans-serif;
 }
 
+
+/* navbar */
 .header{
   display: flex;
   background-color: black;
@@ -23,6 +25,18 @@ body{
   margin-top: 0;
   justify-content: space-around;
   border-radius: 4px;
+}
+
+.nav_click{
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.nav_click h1,
+.nav_click p{
+  margin:0;
 }
 
 h1{

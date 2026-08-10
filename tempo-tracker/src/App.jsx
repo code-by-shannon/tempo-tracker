@@ -240,13 +240,17 @@ function cancelEdit(){
 return (
     <>
 {/* NotePad click handle for dropdown*/}    
-      <div className="header">
+      <div className="header"
+      onClick={ handleNotePadClick }>
         <img 
           src="imgs/drum_icon.png" alt="drum icon"
           className='drum_icon' />
-        <h1>Perfect Tempo</h1>
+          <div className="nav_click">
+          <h1>Perfect Tempo</h1>
+          <p>🎵 Click here to start 🎵</p>
+          </div>
+        
         <img 
-          onClick={ handleNotePadClick }
           src="imgs/note.png" alt="drum icon"
           className='drum_icon' />
       </div>
@@ -350,7 +354,7 @@ return (
 
 </div>
     
-    <footer>tempo tracker v1.0.0</footer>
+    <footer>tempo tracker v1.1.0</footer>
     </>
   )
 }
