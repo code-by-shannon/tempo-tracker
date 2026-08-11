@@ -29,7 +29,8 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [isPulsing, setIsPulsing] = useState(false);
-  // display/hide the dropdown 
+  
+  // display/hide setlist dropdown
   const [showListMenu, setShowListMenu] = useState(false);
   // store setList from db
   const [setList, setSetList] = useState('');
@@ -80,14 +81,10 @@ function renderSongTitle(e){
   setBpm('');
 }
 
-// SetList names load and Create New Setlist button
+// render stored setlists and create new setlist
 function handleNotePadClick(){
   setShowListMenu(prev => !prev); 
 }
-// retrieve setList from db and render
-// function fetchSetList(setList){
-//   console.log(setList);
-// }
 
 // get setLists from db
 useEffect( () => {
@@ -104,13 +101,11 @@ useEffect( () => {
     .catch( (err)  => console.log(err));
   }, []);
 
-// Dropdown unique setlist fetch
+// When setList li is clicked fetch and render that specific setlist
 function handleUniqueSetList(obj){
-  console.log('clicked');
-  // value to send for db query
+  // value to send for db query (name of setlist)
   const setListName = obj.setlist;
-  console.log(setListName);
-
+  
   fetch(`${API_URL}getUniqueSetList.php`, {
     method: "POST",
     headers: {
@@ -122,7 +117,7 @@ function handleUniqueSetList(obj){
   })
 .then((response) => response.json())
 .then((data) => {
-  console.log(data);
+  console.log('this is the data:', data);
   setSongs(data);
 });
 }
@@ -150,9 +145,9 @@ function deleteFunction(idToDelete)
 
 // handleclick BPM button
 function handleBpmButtonClick(song){
+  // console.log('song in handlebpm function: ', song)
   setActiveBPM(song.bpm);
   setCurrentSong(song);
-
 }
 
 // sets click parameters (tone, length etc. ) for 1 click at a scheduled time
@@ -235,27 +230,33 @@ function cancelEdit(){
   setEditingSong(null);
 }
 
+// console.log("This is the setList: ", setList)
 
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
     <>
-{/* NotePad click handle for dropdown*/}    
+{/* click in navbar area to render saved setlists and/or create new setlist*/}    
       <div className="header"
-      onClick={ handleNotePadClick }>
-        <img 
+           onClick={ handleNotePadClick }>
+          
+          {/* drum icon */}
+          <img 
           src="imgs/drum_icon.png" alt="drum icon"
           className='drum_icon' />
+          
+          {/* App name and directions div */}
           <div className="nav_click">
           <h1>Perfect Tempo</h1>
           <p>🎵 Click here to start 🎵</p>
           </div>
         
-        <img 
+          {/* Notepad icon img */}
+          <img 
           src="imgs/note.png" alt="drum icon"
           className='drum_icon' />
       </div>
 
-{/* Set List Dropdown Names and Render */}
+{/* Dropdown rendering of setlist names */}
     { showListMenu && (
       <div className='dropdown_list'>
         <ul className='setList_render'>
@@ -313,8 +314,10 @@ return (
     <tbody>
       {songs.map((song) => (
         <tr key={song.id}>
-
-          <td className={currentSong?.id === song.id ? "active-song" : ""}>{song.title}</td>
+          
+          <td className={currentSong?.id === song.id ? "active-song" : ""}
+          onClick={() => handleBpmButtonClick(song)}>
+          {song.title}</td>
 
           <td>
             <button
