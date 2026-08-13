@@ -83,6 +83,8 @@ function renderSongTitle(e){
 
 // render stored setlists and create new setlist
 function handleNotePadClick(){
+  // showListMenu is true or false
+  // prev => toggles state
   setShowListMenu(prev => !prev); 
 }
 
@@ -101,25 +103,24 @@ useEffect( () => {
     .catch( (err)  => console.log(err));
   }, []);
 
-// When setList li is clicked fetch and render that specific setlist
-function handleUniqueSetList(obj){
-  // value to send for db query (name of setlist)
-  const setListName = obj.setlist;
+
+  function handleUniqueSetList(obj){
+   
+    // send request to php
+    fetch(`${API_URL}getUniqueSetList.php`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    })
   
-  fetch(`${API_URL}getUniqueSetList.php`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      setlist: setListName,
-    }),
-  })
-.then((response) => response.json())
-.then((data) => {
-  console.log('this is the data:', data);
-  setSongs(data);
-});
+    // retrieval of data from php 
+    .then((response) => response.json())
+    .then((data) => {
+    console.log('this is the data:', data);
+    setSongs(data);
+  });
 }
 
 // delete li (title, bpm, etc)
@@ -148,6 +149,7 @@ function handleBpmButtonClick(song){
   // console.log('song in handlebpm function: ', song)
   setActiveBPM(song.bpm);
   setCurrentSong(song);
+  console.log('this is the currentSong: ', currentSong);
 }
 
 // sets click parameters (tone, length etc. ) for 1 click at a scheduled time
@@ -230,7 +232,7 @@ function cancelEdit(){
   setEditingSong(null);
 }
 
-// console.log("This is the setList: ", setList)
+console.log("This is the setList: ", setList)
 
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
@@ -260,8 +262,8 @@ return (
     { showListMenu && (
       <div className='dropdown_list'>
         <ul className='setList_render'>
+          {/* setList on initial render contains all titles in db */}
           {setList.map((setlistRender)=>(
-            
             <li key={ setlistRender.setlist }
                 onClick={ () => handleUniqueSetList(setlistRender) }>
               {setlistRender.setlist}
@@ -295,14 +297,15 @@ return (
 )}    
 
 
-{/* Select SetList Nag */}
-{/* rendering song list */}
+
+{/* jsx for rendering list of songs from setlist and START button*/}
 <div className="song-list-and-start-btn">
-
   <h2>Current Set List</h2>
-
+  
+  {/* Table for setlist render title, bpm, edit */}
   <table className="song-table">
-
+  
+    {/* table head */}
     <thead>
       <tr>
         <th>Title</th>
@@ -310,15 +313,18 @@ return (
         <th>Edit</th>
       </tr>
     </thead>
-
+    
+    {/* table body */}
     <tbody>
       {songs.map((song) => (
+        // row
         <tr key={song.id}>
-          
+          {/* song title */}
           <td className={currentSong?.id === song.id ? "active-song" : ""}
           onClick={() => handleBpmButtonClick(song)}>
           {song.title}</td>
-
+          
+          {/*  bpm button */}
           <td>
             <button
               className="bpm-button"
@@ -327,39 +333,32 @@ return (
               {song.bpm}
             </button>
           </td>
-
+          
+          {/* edit button */}
           <td>
             <button
               onClick={() => {
-                  console.log('testing edit button');
+                  // console.log('testing edit button');
+                  // console.log('this is the song object: ', song);
                   handleEditSong(song);
                 }}
-                
-            >
-              Edit
-            </button>
+            >Edit</button>
           </td>
-
         </tr>
       ))}
     </tbody>
-
   </table>
-
+  
+  {/* start button */}              
   <button
-    
     className={ `start-button ${ isPulsing ? "pulse" : ""}` }
     onClick={testClick}
-
-
-    >{isPlaying ? "Stop" : "Start"}
-    </button>
-
+  >{isPlaying ? "Stop" : "Start"}</button>
 </div>
-    
-    <footer>tempo tracker v1.1.0</footer>
-    </>
-  )
-}
+
+{/* footer */}    
+<footer>tempo tracker v1.1.0</footer>
+</>
+)}
 
 export default App
