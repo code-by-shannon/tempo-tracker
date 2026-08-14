@@ -5,7 +5,14 @@ const API_URL = import.meta.env.DEV
   ? "https://codebyshannon.com/projects/tempo_tracker/tempo-api/"
   : "./tempo-api/";
 
-function EditSong({ song, setEditSong, songs, setSongs, cancelEdit }) {
+function EditSong({
+  song,
+  setEditSong,
+  songs,
+  setSongs,
+  cancelEdit,
+  setEditingSong,
+}) {
   // create a new copy of the song obj that can be edited
   const [editedSong, setEditedSong] = useState(song);
 
@@ -23,18 +30,26 @@ function EditSong({ song, setEditSong, songs, setSongs, cancelEdit }) {
     });
   }
 
-  function deleteSong(){
-  console.log('this is the delete song function');
-  console.log('editedSong: ', editedSong);
-  // send data to deleteSong.php
-  fetch(`${API_URL}deleteSong.php`,{
-    method: "POST",
-    headers: {
+  function deleteSong() {
+    // console.log("editedSong: ", editedSong);
+    // send data to deleteSong.php
+    fetch(`${API_URL}deleteSong.php`, {
+      method: "POST",
+      headers: {
         "Content-Type": "application/json",
-    },
-    body: JSON.stringify(editedSong)
-  })
-  };
+      },
+      body: JSON.stringify(editedSong),
+    }).then(() => {
+      // return to homescreen
+      setEditingSong(null);
+      // filter to create updated songs array after delete
+      const filteredSongs = songs.filter((song)=>{
+          return song.id !== editedSong.id;
+      });  console.log('song: ', songs, 'filteredSongs', filteredSongs);
+      setSongs(filteredSongs);
+    })
+    // return to home screen
+  }
 
   // after update button click, update db and exit edit screen
   function handleUpdateSong() {
@@ -65,6 +80,7 @@ function EditSong({ song, setEditSong, songs, setSongs, cancelEdit }) {
   }
 
   {
+    
     /* JSX */
   }
   return (

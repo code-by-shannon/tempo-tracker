@@ -105,7 +105,6 @@ useEffect( () => {
 
 
   function handleUniqueSetList(obj){
-   
     // send request to php
     fetch(`${API_URL}getUniqueSetList.php`, {
       method: "POST",
@@ -118,7 +117,7 @@ useEffect( () => {
     // retrieval of data from php 
     .then((response) => response.json())
     .then((data) => {
-    console.log('this is the data:', data);
+    // console.log('this is the data:', data);
     setSongs(data);
   });
 }
@@ -149,7 +148,7 @@ function handleBpmButtonClick(song){
   // console.log('song in handlebpm function: ', song)
   setActiveBPM(song.bpm);
   setCurrentSong(song);
-  console.log('this is the currentSong: ', currentSong);
+  // console.log('this is the currentSong: ', currentSong);
 }
 
 // sets click parameters (tone, length etc. ) for 1 click at a scheduled time
@@ -224,7 +223,8 @@ if (editingSong) {
             setEditSong={setEditingSong}
             songs={songs}
             setSongs={setSongs}
-            cancelEdit={cancelEdit} />;
+            cancelEdit={cancelEdit}
+            setEditingSong={setEditingSong} />;
 }
 
 {/* Cancel Song Editing and return to SetList*/}
@@ -232,7 +232,9 @@ function cancelEdit(){
   setEditingSong(null);
 }
 
-console.log("This is the setList: ", setList)
+// console.log("This is the setList: ", setList)
+// console.log('songs array: ', songs);
+// console.log('editedSong: ', editingSong);
 
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
 return (
