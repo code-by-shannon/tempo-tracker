@@ -44,6 +44,8 @@ function App() {
 // handle the click on the li item that opens the form to create a new setlist
 const handleCreateNewSetlist = () => {
   setIsEnteringNewSongs(true);
+
+  // why are all songs green?
 };
 
 // track song title input
@@ -73,10 +75,15 @@ function renderSongTitle(e){
     body: JSON.stringify(songObject),
     headers: {"Content-type": "application/json"}
   })
-    .then( (response) => response.text() )
+  // after php has recieved songObject return object from php with ID added 
+    .then( (response) => response.json() )
+    .then((data) => {
+      console.log('object from php: ', data);
+      setSongs([...songs, data]);
+    });
     // .then( (data) => console.log(data) );
 
-  setSongs([...songs, songObject]);
+  console.log('This is the song object: ', songObject);
   setTitle('');
   setBpm('');
 }
@@ -233,7 +240,7 @@ function cancelEdit(){
 }
 
 // console.log("This is the setList: ", setList)
-// console.log('songs array: ', songs);
+console.log('songs array: ', songs);
 // console.log('editedSong: ', editingSong);
 
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
@@ -318,37 +325,39 @@ return (
     
     {/* table body */}
     <tbody>
-      {songs.map((song) => (
-        // row
-        <tr key={song.id}>
-          {/* song title */}
-          <td className={currentSong?.id === song.id ? "active-song" : ""}
-          onClick={() => handleBpmButtonClick(song)}>
-          {song.title}</td>
-          
-          {/*  bpm button */}
-          <td>
-            <button
-              className="bpm-button"
-              onClick={() => handleBpmButtonClick(song)}
-            >
-              {song.bpm}
-            </button>
-          </td>
-          
-          {/* edit button */}
-          <td>
-            <button
-              onClick={() => {
-                  // console.log('testing edit button');
-                  // console.log('this is the song object: ', song);
-                  handleEditSong(song);
-                }}
-            >Edit</button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
+  {songs.map((song) => (
+    <tr key={song.id}>
+      {/* song title */}
+      <td
+        className={currentSong?.id === song.id ? "active-song" : ""}
+        onClick={() => handleBpmButtonClick(song)}
+      >
+        {song.title}
+      </td>
+
+      {/* bpm button */}
+      <td>
+        <button
+          className="bpm-button"
+          onClick={() => handleBpmButtonClick(song)}
+        >
+          {song.bpm}
+        </button>
+      </td>
+
+      {/* edit button */}
+      <td>
+        <button
+          onClick={() => {
+            handleEditSong(song);
+          }}
+        >
+          Edit
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
   </table>
   
   {/* start button */}              
