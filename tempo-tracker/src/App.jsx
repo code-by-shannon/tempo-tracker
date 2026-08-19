@@ -4,6 +4,7 @@ import './App.css';
 
 import EditSong from "./EditSong";
 import EnterNewSong from "./EnterNewSong";
+import AddSongToSetlist from './AddSongToSetList';
 
 
 // toggle for local vs remote deployment
@@ -19,19 +20,27 @@ let isMetronomeRunning = false;
 
 function App() {
 {/* use states */}
+  // song building
   const [title, setTitle] = useState('');
   const [bpm, setBpm] = useState(120);
   
-  //  const to hold current selected setlist
+  //  song in the setList
   const [songs, setSongs] = useState([]);
   
+  // state for adding new song to existing setlist
+  const [addNewSongToSetlist, setAddNewSongToSetList] = useState(false);
+  // state for holding currently selected setlist name
+  const [currentSetListTitle, setCurrentSetListTitle] = useState('');
+
+  // metronome functionality
   const [activeBPM, setActiveBPM] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [isPulsing, setIsPulsing] = useState(false);
   
-  // display/hide setlist dropdown
+  // display/hide setList dropdown
   const [showListMenu, setShowListMenu] = useState(false);
+  
   // store setList from db
   const [setList, setSetList] = useState('');
   // EditSong.jsx (for rendering editing screen)
@@ -85,7 +94,7 @@ function renderSongTitle(e){
 
   console.log('This is the song object: ', songObject);
   setTitle('');
-  setBpm('');
+  setBpm(120);
 }
 
 // render stored setlists and create new setlist
@@ -112,6 +121,9 @@ useEffect( () => {
 
 
   function handleUniqueSetList(obj){
+    // store setlist name in state
+    setCurrentSetListTitle(obj.setlist);
+
     // send request to php
     fetch(`${API_URL}getUniqueSetList.php`, {
       method: "POST",
@@ -239,8 +251,8 @@ function cancelEdit(){
   setEditingSong(null);
 }
 
-// console.log("This is the setList: ", setList)
-console.log('songs array: ', songs);
+console.log("This is the setList: ", setList)
+// console.log('songs array: ', songs);
 // console.log('editedSong: ', editingSong);
 
 // JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX JSX
@@ -266,6 +278,9 @@ return (
           src="imgs/note.png" alt="drum icon"
           className='drum_icon' />
       </div>
+
+{/* Form to ADD a new song to existing setlist */}
+{ addNewSongToSetlist && <AddSongToSetlist /> }
 
 {/* Dropdown rendering of setlist names */}
     { showListMenu && (
@@ -305,11 +320,13 @@ return (
 />
 )}    
 
-
-
 {/* jsx for rendering list of songs from setlist and START button*/}
 <div className="song-list-and-start-btn">
-  <h2>Current Set List</h2>
+  {/* button to add new song to existing set list */}
+  <button
+  onClick={()=>{setAddNewSongToSetList(true)}}
+  >+ Add New Song</button>
+  <h2>Current Set List: {currentSetListTitle}</h2>
   
   {/* Table for setlist render title, bpm, edit */}
   <table className="song-table">
