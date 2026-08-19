@@ -26,11 +26,19 @@ function App() {
   
   //  song in the setList
   const [songs, setSongs] = useState([]);
-  
-  // state for adding new song to existing setlist
+
+   // state for adding new song to existing setlist
   const [addNewSongToSetlist, setAddNewSongToSetList] = useState(false);
+
   // state for holding currently selected setlist name
   const [currentSetListTitle, setCurrentSetListTitle] = useState('');
+
+  // state for holding the new song object
+  const [newSong, setNewSong] = useState({
+    title: '',
+    bpm: '',
+    setlist: currentSetListTitle
+  });
 
   // metronome functionality
   const [activeBPM, setActiveBPM] = useState(null);
@@ -280,7 +288,13 @@ return (
       </div>
 
 {/* Form to ADD a new song to existing setlist */}
-{ addNewSongToSetlist && <AddSongToSetlist /> }
+{ addNewSongToSetlist && 
+  <AddSongToSetlist 
+    setListTitle={currentSetListTitle}
+    newSong={newSong}
+    setNewSong={setNewSong}
+    setSongs={setSongs}
+  /> }
 
 {/* Dropdown rendering of setlist names */}
     { showListMenu && (
