@@ -25,6 +25,7 @@ body{
   margin-top: 0;
   justify-content: space-around;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .nav_click{
@@ -227,6 +228,7 @@ button {
   opacity: 0.8;
   width:50%;
   margin: 8rem auto;
+  pointer-events: none;
 }
 
 .current_song{
