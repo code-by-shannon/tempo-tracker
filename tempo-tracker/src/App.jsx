@@ -65,6 +65,9 @@ const handleCreateNewSetlist = () => {
   // why are all songs green?
 };
 
+const hasSongs=songs.length > 0;
+
+
 // track song title input
   function handleSongChange(e) {
     setTitle(e.target.value);
@@ -100,7 +103,7 @@ function renderSongTitle(e){
     });
     // .then( (data) => console.log(data) );
 
-  console.log('This is the song object: ', songObject);
+  // console.log('This is the song object: ', songObject);
   setTitle('');
   setBpm(120);
 }
@@ -335,7 +338,7 @@ return (
 )}    
 
 {/* jsx for rendering list of songs from setlist and START button*/}
-<div className="song-list-and-start-btn">
+<div className={hasSongs ? 'song-list-and-start-btn' : 'song-list-and-start-btn disabled'}>
   {/* button to add new song to existing set list */}
   <button
   onClick={()=>{setAddNewSongToSetList(true)}}

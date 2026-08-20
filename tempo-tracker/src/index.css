@@ -228,6 +228,9 @@ button {
   opacity: 0.8;
   width:50%;
   margin: 8rem auto;
+}
+
+.disabled{
   pointer-events: none;
 }
 
